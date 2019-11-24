@@ -73,7 +73,12 @@ public class RWayTrie implements Trie {
 
     @Override
     public boolean contains(String word) {
-        return get(word) != -1;
+        try {
+            return get(word) != -1;
+        }
+        catch (Exception e) {
+            return false;
+        }
     }
 
     @Override
