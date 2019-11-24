@@ -1,6 +1,9 @@
 package ua.edu.ucu.autocomplete;
 
 import ua.edu.ucu.tries.Trie;
+import ua.edu.ucu.tries.Tuple;
+
+import java.util.*;
 
 /**
  *
@@ -11,30 +14,65 @@ public class PrefixMatches {
     private Trie trie;
 
     public PrefixMatches(Trie trie) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        this.trie = trie;
     }
 
     public int load(String... strings) {
-        throw new UnsupportedOperationException("Not supported yet.");        
+        int counter = 0;
+        for (String str: strings) {
+            String[] splited = str.split("\\s+");
+            for (String st: splited) {
+                if (str.length() >= 2) {
+                    trie.add(new Tuple(str, str.length()));
+                    counter++;
+                }
+            }
+        }
+        return counter;
     }
 
     public boolean contains(String word) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return trie.contains(word);
     }
 
     public boolean delete(String word) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return trie.delete(word);
     }
 
     public Iterable<String> wordsWithPrefix(String pref) {
-        throw new UnsupportedOperationException("Not supported yet.");        
+        if (pref.length() >= 2) {
+            return trie.wordsWithPrefix(pref);
+        }
+        return null;
     }
 
     public Iterable<String> wordsWithPrefix(String pref, int k) {
-        throw new UnsupportedOperationException("Not supported yet.");        
+        if (pref.length() >= 2) {
+            Iterable<String> arr = trie.wordsWithPrefix(pref);
+            ArrayList<String> list = new ArrayList<>();
+            for (String st: arr) {
+                list.add(st);
+            }
+            list.sort(Comparator.comparingInt(String::length));
+            int counter = 0;
+            int prev_length = 0;
+            ArrayList<String> result = new ArrayList<>();
+            for (String st: list) {
+                if (counter == k) {
+                    break;
+                }
+                result.add(st);
+                if (st.length() > prev_length) {
+                    prev_length = st.length();
+                    counter++;
+                }
+            }
+            return result;
+        }
+        return null;
     }
 
     public int size() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return trie.size();
     }
 }
