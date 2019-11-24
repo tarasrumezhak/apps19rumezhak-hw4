@@ -22,7 +22,7 @@ public class PrefixMatches {
         for (String str: strings) {
             String[] splited = str.split("\\s+");
             for (String st: splited) {
-                if (str.length() >= 2) {
+                if (str.length() > 2) {
                     trie.add(new Tuple(str, str.length()));
                     counter++;
                 }
