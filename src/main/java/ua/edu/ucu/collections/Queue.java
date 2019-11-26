@@ -1,6 +1,6 @@
-package ua.edu.ucu.tries;
+package ua.edu.ucu.collections;
 
-import ua.edu.ucu.tries.ImmutableLinkedList;
+import ua.edu.ucu.collections.ImmutableLinkedList;
 
 public class Queue {
     private ImmutableLinkedList linkedList;
@@ -9,21 +9,21 @@ public class Queue {
         linkedList = new ImmutableLinkedList();
     }
 
-    Object peek() {
+    public Object peek() {
         return linkedList.getFirst();
     }
 
-    Object dequeue() {
+    public Object dequeue() {
         Object obj = this.peek();
         linkedList = linkedList.removeFirst();
         return obj;
     }
 
-    void enqueue(Object e) {
+    public void enqueue(Object e) {
         linkedList = linkedList.addLast(e);
     }
 
-    int size() {
+    public int size() {
         return linkedList.size();
     }
 

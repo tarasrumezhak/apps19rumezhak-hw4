@@ -1,4 +1,4 @@
-package ua.edu.ucu.tries;
+package ua.edu.ucu.collections;
 
 public final class ImmutableLinkedList{
     public ImmutableLinkedList() {

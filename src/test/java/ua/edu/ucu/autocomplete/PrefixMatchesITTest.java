@@ -43,4 +43,26 @@ public class PrefixMatchesITTest {
 
         assertThat(result, containsInAnyOrder(expResult));
     }
+
+    @Test
+    public void testDeleteWord() {
+        pm.delete("abce");
+        String[] expResult = {"abc", "abcd", "abcde", "abcdef"};
+        assertThat(pm.wordsWithPrefix("abc"), containsInAnyOrder(expResult));
+    }
+
+    @Test
+    public void testLoad() {
+        pm.load("abchehy abcyyhhy");
+        String[] expResult = {"abc", "abcd", "abcde", "abce","abcdef", "abchehy", "abcyyhhy"};
+        Iterable<String> result = pm.wordsWithPrefix("abc");
+        assertThat(result, containsInAnyOrder(expResult));
+    }
+
+    @Test
+    public void testSize() {
+        pm.load("abchehy abcyyhhy");
+        String[] expResult = {"abc", "abcd", "abcde", "abce","abcdef", "abchehy", "abcyyhhy"};
+        assertEquals(pm.size(), 7);
+    }
 }

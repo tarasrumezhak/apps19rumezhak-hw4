@@ -6,7 +6,6 @@ import ua.edu.ucu.tries.Tuple;
 import java.util.*;
 
 /**
- *
  * @author andrii
  */
 public class PrefixMatches {
@@ -19,11 +18,11 @@ public class PrefixMatches {
 
     public int load(String... strings) {
         int counter = 0;
-        for (String str: strings) {
+        for (String str : strings) {
             String[] splited = str.split("\\s+");
-            for (String st: splited) {
-                if (str.length() > 2) {
-                    trie.add(new Tuple(str, str.length()));
+            for (String st : splited) {
+                if (st.length() > 2) {
+                    trie.add(new Tuple(st, st.length()));
                     counter++;
                 }
             }
@@ -47,29 +46,30 @@ public class PrefixMatches {
     }
 
     public Iterable<String> wordsWithPrefix(String pref, int k) {
-        if (pref.length() >= 2) {
-            Iterable<String> arr = trie.wordsWithPrefix(pref);
-            ArrayList<String> list = new ArrayList<>();
-            for (String st: arr) {
-                list.add(st);
-            }
-            list.sort(Comparator.comparingInt(String::length));
-            int counter = 0;
-            int prev_length = 0;
-            ArrayList<String> result = new ArrayList<>();
-            for (String st: list) {
-                if (counter == k) {
-                    break;
-                }
-                result.add(st);
-                if (st.length() > prev_length) {
-                    prev_length = st.length();
-                    counter++;
-                }
-            }
-            return result;
+        if (pref.length() < 2) {
+            return null;
         }
-        return null;
+        Iterable<String> arr = trie.wordsWithPrefix(pref);
+        ArrayList<String> list = new ArrayList<>();
+        for (String st : arr) {
+            list.add(st);
+        }
+        list.sort(Comparator.comparingInt(String::length));
+        int counter = 0;
+        int prev_length = 0;
+        ArrayList<String> result = new ArrayList<>();
+        for (String st : list) {
+            if (counter == k) {
+                break;
+            }
+            result.add(st);
+            if (st.length() > prev_length) {
+                prev_length = st.length();
+                counter++;
+            }
+        }
+        return result;
+
     }
 
     public int size() {
